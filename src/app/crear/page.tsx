@@ -16,14 +16,20 @@ const Page = () => {
   const router = useRouter();
   const [formData, setformData] = useState<Servicio>(undefined!);
 
+  const [tipo, setTipo] = useState<string>("");
+
   const handleChange = (
     e: ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>
   ) => {
     const { name, value } = e.target;
-    setformData({
-      ...formData,
-      [name]: ["Negocio", "Unidad"].includes(name) ? Number(value) : value,
-    });
+    if (name === "Tipo") {
+      setTipo(value);
+    } else {
+      setformData({
+        ...formData,
+        [name]: ["Negocio", "Unidad"].includes(name) ? Number(value) : value,
+      });
+    }
   };
 
   const handleSubmit = (e: FormEvent) => {
@@ -45,7 +51,7 @@ const Page = () => {
       redirect: "follow",
     };
 
-    fetch("http://localhost:8081/api/servicios", requestOptions)
+    fetch(`http://localhost:8081/api/${tipo}`, requestOptions)
       .then((response) => response.text())
       .then((result) => {
         console.log(result);
@@ -113,6 +119,25 @@ const Page = () => {
               onChange={handleChange}
               required
             />
+          </div>
+          <div className="mb-5">
+            <label
+              form="countries"
+              className="block mb-2 text-sm font-medium text-gray-900"
+            >
+              tipo
+            </label>
+            <select
+              id="countries"
+              className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5"
+              name="Tipo"
+              value={tipo}
+              onChange={handleChange}
+            >
+              <option>Seleccionar tipo</option>
+              <option value={"servicios"}>servicio</option>
+              <option value={"producto"}>producto</option>
+            </select>
           </div>
           <div className="mb-5">
             <label

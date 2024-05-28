@@ -14,7 +14,7 @@ interface Props {
 const TablaContenido = ({ resultaods }: Props) => {
   return (
     <div className="grid  m-5 grid-cols-2 md:grid-cols-4 gap-4 h-full scroll-m-1">
-      {resultaods.map((item, i) => {
+      {resultaods?.map((item, i) => {
         if (isResultServicio(item)) {
           return (
             <Link key={i} href={`/actualizar/servicios/${item.Id_servicio}`}>
@@ -37,7 +37,7 @@ const TablaContenido = ({ resultaods }: Props) => {
         }
 
         return;
-      })}
+      })??[]}
     </div>
   );
 };

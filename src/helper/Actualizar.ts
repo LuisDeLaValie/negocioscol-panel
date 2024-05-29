@@ -1,12 +1,10 @@
-async function ActualizarServicioProducto(
+export default async function ActualizarServicioProducto(
   data: any,
   tipo: string,
   id: string
 ): Promise<void> {
   try {
-    console.log("console.log(apiUrl);");
-const apiUrl = process.env.NEXT_PUBLIC_PUBLIC_API_URL;
-console.log(apiUrl);
+    const apiUrl = process.env.NEXT_PUBLIC_PUBLIC_API_URL;
 
     const myHeaders = new Headers();
     myHeaders.append("Content-Type", "application/json");

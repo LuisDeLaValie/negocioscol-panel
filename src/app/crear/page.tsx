@@ -3,6 +3,7 @@
 import React, { ChangeEvent, FormEvent, useState } from "react";
 import "./styles.css";
 import { useRouter } from "next/navigation";
+import CerarServicioProducto from "@/helper/crear_pero_ser";
 
 interface Servicio {
   Nombre: string;
@@ -32,7 +33,7 @@ const Page = () => {
     }
   };
 
-  const handleSubmit = async (e: FormEvent) => {
+  const handleSubmit = (e: FormEvent) => {
     e.preventDefault();
     const raw = {
       ...formData,
@@ -40,7 +41,11 @@ const Page = () => {
         "https://www.fixferreterias.com/media/product/287/martillo-10-oz-mango-comfort-grip-pretulmo-10e-e86.jpg",
     };
 
-    await CerarServicioProducto(raw, tipo);
+    CerarServicioProducto(raw, tipo)
+      .then(() => {
+        router.replace("/");
+      })
+      .catch((error) => console.error(error));
   };
 
   return (

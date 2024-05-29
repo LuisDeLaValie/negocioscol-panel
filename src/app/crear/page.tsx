@@ -32,32 +32,15 @@ const Page = () => {
     }
   };
 
-  const handleSubmit = (e: FormEvent) => {
+  const handleSubmit = async (e: FormEvent) => {
     e.preventDefault();
-
-    const myHeaders = new Headers();
-    myHeaders.append("Content-Type", "application/json");
-    const raw = JSON.stringify({
+    const raw = {
       ...formData,
       Imagen:
         "https://www.fixferreterias.com/media/product/287/martillo-10-oz-mango-comfort-grip-pretulmo-10e-e86.jpg",
-    });
-    console.log("Datos del formulario:", raw);
-
-    const requestOptions: RequestInit = {
-      method: "POST",
-      headers: myHeaders,
-      body: raw,
-      redirect: "follow",
     };
 
-    fetch(`http://localhost:8081/api/${tipo}`, requestOptions)
-      .then((response) => response.text())
-      .then((result) => {
-        console.log(result);
-        router.replace("/");
-      })
-      .catch((error) => console.error(error));
+    await CerarServicioProducto(raw, tipo);
   };
 
   return (

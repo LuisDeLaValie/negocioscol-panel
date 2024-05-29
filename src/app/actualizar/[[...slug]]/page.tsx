@@ -42,29 +42,13 @@ const Page = ({ params }: Props) => {
 
     const myHeaders = new Headers();
     myHeaders.append("Content-Type", "application/json");
-    const raw = JSON.stringify({
+    const raw = {
       ...formData,
       Imagen:
         "https://www.fixferreterias.com/media/product/287/martillo-10-oz-mango-comfort-grip-pretulmo-10e-e86.jpg",
-    });
-
-    const requestOptions: RequestInit = {
-      method: "PUT",
-      headers: myHeaders,
-      body: raw,
-      redirect: "follow",
     };
 
-    fetch(
-      `http://localhost:8081/api/${params.slug[0]}/${params.slug[1]}`,
-      requestOptions
-    )
-      .then((response) => response.text())
-      .then((result) => {
-        console.log(result);
-        router.replace("/");
-      })
-      .catch((error) => console.error(error));
+    ActualizarServicioProducto(raw, params.slug[0], params.slug[1]);
   };
 
   const getData = async (tipo: string, id: string) => {
@@ -149,7 +133,7 @@ const Page = ({ params }: Props) => {
             />
           </div>
 
-         <div className="mb-5">
+          <div className="mb-5">
             <label
               htmlFor="email"
               className="block mb-2 text-sm font-medium text-gray-900"
@@ -201,9 +185,8 @@ const Page = ({ params }: Props) => {
               placeholder="Imagen"
               name="Imagen"
               onChange={handleChange}
-              
             />
-          </div> 
+          </div>
 
           <button
             type="submit"

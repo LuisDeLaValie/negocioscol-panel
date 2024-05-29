@@ -4,8 +4,13 @@ import ServicioSearch from "@/models/servicios";
 
 export type SearchResult = NegocioSearch | ServicioSearch | ProductoSearch;
 
+const apiUrl = process.env.PUBLIC_API_URL;
+
 export const Buscar = async (buscar: string): Promise<SearchResult[]> => {
   try {
+    console.log("console.log(apiUrl);");
+    console.log(apiUrl);
+
     const myHeaders = new Headers();
     myHeaders.append("Content-Type", "application/json");
 
@@ -16,7 +21,7 @@ export const Buscar = async (buscar: string): Promise<SearchResult[]> => {
     };
 
     var respinse = await fetch(
-      `http://localhost:8081/api/buscar?buscar=${buscar}`,
+      `${apiUrl}/api/buscar?buscar=${buscar}`,
       requestOptions
     );
     var data = await respinse.text();

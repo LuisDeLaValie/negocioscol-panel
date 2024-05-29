@@ -10,6 +10,7 @@ import React, {
 } from "react";
 import "./styles.css";
 import { useRouter } from "next/navigation";
+import ActualizarServicioProducto from "@/helper/Actualizar";
 
 interface Servicio {
   Nombre: string;
@@ -48,7 +49,11 @@ const Page = ({ params }: Props) => {
         "https://www.fixferreterias.com/media/product/287/martillo-10-oz-mango-comfort-grip-pretulmo-10e-e86.jpg",
     };
 
-    ActualizarServicioProducto(raw, params.slug[0], params.slug[1]);
+    ActualizarServicioProducto(raw, params.slug[0], params.slug[1])
+      .then(() => {
+        router.replace("/");
+      })
+      .catch((error) => console.error(error));
   };
 
   const getData = async (tipo: string, id: string) => {

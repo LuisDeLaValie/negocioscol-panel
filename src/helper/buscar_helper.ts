@@ -4,12 +4,9 @@ import ServicioSearch from "@/models/servicios";
 
 export type SearchResult = NegocioSearch | ServicioSearch | ProductoSearch;
 
-const apiUrl = process.env.NEXT_PUBLIC_PUBLIC_API_URL;
-
 export const Buscar = async (buscar: string): Promise<SearchResult[]> => {
   try {
-    console.log("console.log(apiUrl);");
-    console.log(apiUrl);
+    const apiUrl = process.env.NEXT_PUBLIC_PUBLIC_API_URL;
 
     const myHeaders = new Headers();
     myHeaders.append("Content-Type", "application/json");

@@ -1,7 +1,11 @@
 import Link from "next/link";
 import React, { ChangeEvent, FormEvent, useState } from "react";
 
-const Filtros = ({ calback }: { calback: (val: string) => void }) => {
+interface Props {
+  calback: (val: string) => void;
+}
+
+const Filtros = ({ calback }: Props) => {
   const [busqueda, setBusqueda] = useState<string>("");
 
   const handleChange = (e: ChangeEvent<HTMLInputElement>) => {
@@ -36,9 +40,9 @@ const Filtros = ({ calback }: { calback: (val: string) => void }) => {
             >
               <path
                 stroke="currentColor"
-                stroke-linecap="round"
-                stroke-linejoin="round"
-                stroke-width="2"
+                strokeLinecap="round"
+                strokeLinejoin="round"
+                strokeWidth="2"
                 d="m19 19-4-4m0-7A7 7 0 1 1 1 8a7 7 0 0 1 14 0Z"
               />
             </svg>

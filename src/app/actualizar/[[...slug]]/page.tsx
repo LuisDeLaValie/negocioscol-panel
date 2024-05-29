@@ -11,6 +11,7 @@ import React, {
 import "./styles.css";
 import { useRouter } from "next/navigation";
 import ActualizarServicioProducto from "@/helper/Actualizar";
+import ObrenerServicioProducto from "@/helper/ges_servi_produ";
 
 interface Servicio {
   Nombre: string;
@@ -56,42 +57,25 @@ const Page = ({ params }: Props) => {
       .catch((error) => console.error(error));
   };
 
-  const getData = async (tipo: string, id: string) => {
-    try {
-      const myHeaders = new Headers();
-      myHeaders.append("Content-Type", "application/json");
-
-      const requestOptions: RequestInit = {
-        method: "Get",
-        headers: myHeaders,
-        redirect: "follow",
-      };
-
-      var respinse = await fetch(
-        `http://localhost:8081/api/${tipo}/${id}`,
-        requestOptions
-      );
-
-      var data = JSON.parse(await respinse.text());
-      console.log(data);
-      setformData({
-        Nombre: data.Nombre,
-        Descripcion: data.Descripcion,
-        Imagen: data.Imagen,
-        Unidad: data.Unidad,
-      });
-      setLoading(false);
-    } catch (error) {
-      console.error(error);
-      setLoading(false);
-    }
-  };
-
   // useRef to track component mount status
   const isMounted = useRef(true);
 
   useEffect(() => {
-    getData(params.slug[0], params.slug[1]);
+    ObrenerServicioProducto(params.slug[0], params.slug[1])
+      .then((data) => {
+        setformData({
+          Nombre: data.Nombre,
+          Descripcion: data.Descripcion,
+          Imagen: data.Imagen,
+          Unidad: data.Unidad,
+        });
+        setLoading(false);
+      })
+      .catch((error) => {
+        console.error(error);
+        setLoading(false);
+      });
+
     // Cleanup function to set isMounted to false when the component unmounts
     return () => {
       isMounted.current = false;

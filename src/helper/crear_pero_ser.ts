@@ -1,7 +1,7 @@
 async function CerarServicioProducto(data: any, tipo: string): Promise<void> {
   try {
     console.log("console.log(apiUrl);");
-    const apiUrl = process.env.PUBLIC_API_URL;
+    const apiUrl = process.env.NEXT_PUBLIC_PUBLIC_API_URL;
     console.log(apiUrl);
 
     const myHeaders = new Headers();
